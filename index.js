@@ -5,6 +5,7 @@ import fileUpload from "express-fileupload";
 import morgan from "morgan";
 import { database } from "./database/database.js";
 import { errorStatus, notFound } from "./middleware/errors.js";
+import user from "./routes/user.js";
 
 const app = express();
 
@@ -20,6 +21,8 @@ app.use(fileUpload());
 app.use(morgan("tiny"));
 
 database();
+
+app.use("/api/user", user);
 
 app.use(notFound);
 app.use(errorStatus);
