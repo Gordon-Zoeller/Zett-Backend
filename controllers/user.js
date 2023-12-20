@@ -13,4 +13,8 @@ const register = async (req, res, next) => {
     };
 };
 
-export {register};
+const authorizeUser = (req, res) => {
+    res.json({success: true, data: req.user});
+};
+
+export {register, authorizeUser};
