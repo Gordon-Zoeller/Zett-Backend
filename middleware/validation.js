@@ -11,7 +11,7 @@ export const validation = [
         .exists()
         .trim()
         .isStrongPassword({minLength: 9, minLowercase: 1, minUppercase: 1, minSymbols: 1, minNumbers: 1, returnScore: false})
-        .withMessage("Make sure you use a strong password."),
+        .withMessage("Please make sure you use a strong password."),
     body("firstName")
         .exists()
         .withMessage("Please make sure to include your first name.")
