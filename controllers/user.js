@@ -13,8 +13,27 @@ const register = async (req, res, next) => {
     };
 };
 
+const login = async (req, res, next) => {
+    try {
+        const user = await UserModel.findOne({email: req.body.email});
+        if(user) {
+            const password = await bcrypt.compare(req.body.password, user.password);
+            if(password) {
+                const token = jwt.sign({_id: user._id, email: user.email}, process.env.TOKEN_KEY, {issuer: "Zett"});
+                res.header("token", token).json({success: true, data: user});
+            } else {
+                res.json({success: false, message: "Please make sure your password is correct."});
+            };
+        } else {
+            res.json({success: false, message: "Please make sure your email is correct."});
+        };
+    } catch (error) {
+        next(error);
+    }
+};
+
 const authorizeUser = (req, res) => {
     res.json({success: true, data: req.user});
 };
 
-export {register, authorizeUser};
+export {register, login, authorizeUser};
