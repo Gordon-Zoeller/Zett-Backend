@@ -32,7 +32,7 @@ const login = async (req, res, next) => {
     }
 };
 
-const authorizeUser = (req, res) => {
+const authorizedUser = (req, res) => {
     res.json({success: true, data: req.user});
 };
 
