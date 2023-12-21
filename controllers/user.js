@@ -36,4 +36,4 @@ const authorizedUser = (req, res) => {
     res.json({success: true, data: req.user});
 };
 
-export {register, login, authorizeUser};
+export {register, login, authorizedUser};
