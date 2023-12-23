@@ -13,8 +13,8 @@ const UserSchema = new Schema({
         city: String,
         country: String
     },
-    orders: [{type: Schema.Types.ObjectId, ref: "order"}],
-    reviews: [{type: Schema.Types.ObjectId, ref: "reviews"}]
+    orders: [{type: Schema.Types.ObjectId, ref: "Order"}],
+    reviews: [{type: Schema.Types.ObjectId, ref: "Reviews"}]
 });
 
 const UserModel = model("User", UserSchema);
