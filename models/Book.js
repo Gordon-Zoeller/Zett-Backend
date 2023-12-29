@@ -10,7 +10,7 @@ const BookSchema = new Schema({
     publisher: {type: String, required: true},
     genre: String,
     price: {type: Number, required: true},
-    ISBN: {type: String, required: true},
+    ISBN: {type: String, required: true, index: {unique: true}},
     reviews: [{type: Schema.Types.ObjectId, ref: "Review"}],
     image: {
         fileName: {type: String, required: true},
