@@ -14,7 +14,7 @@ const UserSchema = new Schema({
         country: String
     },
     orders: [{type: Schema.Types.ObjectId, ref: "Order"}],
-    reviews: [{type: Schema.Types.ObjectId, ref: "Reviews"}]
+    reviews: [{type: Schema.Types.ObjectId, ref: "Review"}]
 });
 
 const UserModel = model("User", UserSchema);
