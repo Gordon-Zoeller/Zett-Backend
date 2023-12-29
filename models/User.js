@@ -14,7 +14,12 @@ const UserSchema = new Schema({
         country: String
     },
     orders: [{type: Schema.Types.ObjectId, ref: "Order"}],
-    reviews: [{type: Schema.Types.ObjectId, ref: "Review"}]
+    reviews: [{type: Schema.Types.ObjectId, ref: "Review"}],
+    image: {
+        fileName: {type: String, required: true},
+        data: {type: Buffer},
+        thumbnail: {type: String, required: true}
+    }
 });
 
 const UserModel = model("User", UserSchema);
