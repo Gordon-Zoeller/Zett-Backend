@@ -1,4 +1,5 @@
 import BookModel from "../models/Book.js";
+import GenreModel from "../models/Genre.js";
 
 const createBook = async (req, res, next) => {
     try {
@@ -22,6 +23,12 @@ const createBook = async (req, res, next) => {
             }
         };
         const book = await BookModel.create(data);
+
+        const genre = await GenreModel.findOne(req.body.genre);
+        if(!genre) {
+            const genre = await GenreModel.create(req.body.genre);
+        };
+
         res.json({success: true, message: "The book was uploaded successfully."});
     } catch (error) {
         next(error);
