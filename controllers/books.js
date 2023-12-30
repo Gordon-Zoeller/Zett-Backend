@@ -24,9 +24,9 @@ const createBook = async (req, res, next) => {
         };
         const book = await BookModel.create(data);
 
-        const genre = await GenreModel.findOne(req.body.genre);
+        const genre = await GenreModel.findOne({genre: req.body.genre});
         if(!genre) {
-            const genre = await GenreModel.create(req.body.genre);
+            const genre = await GenreModel.create({genre: req.body.genre});
         };
 
         res.json({success: true, message: "The book was uploaded successfully."});
