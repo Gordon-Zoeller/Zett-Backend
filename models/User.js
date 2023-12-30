@@ -16,9 +16,9 @@ const UserSchema = new Schema({
     orders: [{type: Schema.Types.ObjectId, ref: "Order"}],
     reviews: [{type: Schema.Types.ObjectId, ref: "Review"}],
     image: {
-        fileName: {type: String, required: true},
+        fileName: String,
         data: {type: Buffer},
-        thumbnail: {type: String, required: true}
+        thumbnail: String
     }
 });
 
