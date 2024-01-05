@@ -5,6 +5,6 @@ import { role } from "../middleware/role.js";
 
 const routes = Router();
 
-routes.post("/book", authorization, role, createBook);
+routes.post("/upload", authorization, role, createBook);
 
 export default routes;
