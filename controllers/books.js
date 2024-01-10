@@ -35,4 +35,13 @@ const createBook = async (req, res, next) => {
     };
 };
 
-export {createBook};
+const genre = async (req, res, next) => {
+    try {
+        const books = await BookModel.find({genre: req.params.genre}).select({"image": 0});
+        res.json({success: true, data: books});
+    } catch (error) {
+        next(error);
+    }
+};
+
+export {createBook, genre};
