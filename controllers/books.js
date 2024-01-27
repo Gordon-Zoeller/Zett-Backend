@@ -6,7 +6,7 @@ const createBook = async (req, res, next) => {
         const fileName = Date.now() + "_" + req.files.image.name;
         const data = {
             title: req.body.title,
-            author: req.body.combinedName,
+            author: req.body.fullName,
             year: parseInt(req.body.year),
             publisher: req.body.publisher,
             genre: req.body.genre,
@@ -43,3 +43,5 @@ const genre = async (req, res, next) => {
 };
 
 export {createBook, genre};
+
+//image.data 0 image.fileName 0
