@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import UserModel from "../models/User.js";
 
-const register = async (req, res, next) => {
+const signup = async (req, res, next) => {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         const user = await UserModel.create({...req.body, password: hashedPassword});
@@ -36,4 +36,4 @@ const authorizedUser = (req, res) => {
     res.json({success: true, data: req.user});
 };
 
-export {register, signin, authorizedUser};
+export {signup, signin, authorizedUser};
