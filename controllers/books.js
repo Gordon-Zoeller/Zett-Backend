@@ -35,7 +35,7 @@ const createBook = async (req, res, next) => {
 const genre = async (req, res, next) => {
     try {
         const deadSnake = req.params.genre.replaceAll("_", " ");
-        const books = await BookModel.find({genre: deadSnake}).select({"image": 0});
+        const books = await BookModel.find({genre: deadSnake}).select({"image.fileName": 0, "image.data": 0});
         res.json({success: true, data: books});
     } catch (error) {
         next(error);
@@ -43,5 +43,3 @@ const genre = async (req, res, next) => {
 };
 
 export {createBook, genre};
-
-//image.data 0 image.fileName 0
