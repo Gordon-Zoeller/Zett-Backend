@@ -13,7 +13,7 @@ const register = async (req, res, next) => {
     };
 };
 
-const login = async (req, res, next) => {
+const signin = async (req, res, next) => {
     try {
         const user = await UserModel.findOne({email: req.body.email}).select({"image.fileName": 0, "image.data": 0});
         if(user) {
@@ -36,4 +36,4 @@ const authorizedUser = (req, res) => {
     res.json({success: true, data: req.user});
 };
 
-export {register, login, authorizedUser};
+export {register, signin, authorizedUser};
