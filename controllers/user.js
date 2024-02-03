@@ -15,7 +15,7 @@ const register = async (req, res, next) => {
 
 const login = async (req, res, next) => {
     try {
-        const user = await UserModel.findOne({email: req.body.email}).select({password: 0, "image.fileName": 0, "image.data": 0});
+        const user = await UserModel.findOne({email: req.body.email}).select({"image.fileName": 0, "image.data": 0});
         if(user) {
             const password = await bcrypt.compare(req.body.password, user.password);
             if(password) {
