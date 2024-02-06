@@ -1,5 +1,6 @@
 import BookModel from "../models/Book.js";
 import BookGenreModel from "../models/BookGenre.js";
+import stream from "stream";
 
 const createBook = async (req, res, next) => {
     try {
@@ -62,4 +63,20 @@ const genre = async (req, res, next) => {
     }
 };
 
-export {createBook, genre};
+const image = async (req, res, next) => {
+    try {
+        if(req.params.fileName.includes("Hardcover")) {
+            const book = await BookModel.findOne({"edition.hardcover.image.fileName": req.params.fileName}).select({"edition.hardcover.image.data": 1});
+            const ReadStream = stream.Readable.from(book.edition.hardcover.image.data);
+            ReadStream.pipe(res);
+        } else {
+            const book = await BookModel.findOne({"edition.paperback.image.fileName": req.params.fileName}).select({"edition.paperback.image.data": 1});
+            const ReadStream = stream.Readable.from(book.edition.paperback.image.data);
+            ReadStream.pipe(res);
+        };
+    } catch (error) {
+        next(error);
+    }
+};
+
+export {createBook, genre, image};
