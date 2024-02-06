@@ -1,12 +1,12 @@
-import GenreModel from "../models/Genre.js";
+import BookGenreModel from "../models/BookGenre.js";
 
-const genres = async (req, res, next) => {
+const books = async (req, res, next) => {
     try {
-        const genres = await GenreModel.find();
+        const genres = await BookGenreModel.find();
         res.json({success: true, data: genres});
     } catch (error) {
         next(error);
     }
 };
 
-export {genres};
+export {books};

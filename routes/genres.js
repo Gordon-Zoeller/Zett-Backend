@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { genres } from "../controllers/genres.js";
+import { books } from "../controllers/genres.js";
 
 const routes = Router();
 
-routes.get("/", genres);
+routes.get("/books", books);
 
 export default routes;
