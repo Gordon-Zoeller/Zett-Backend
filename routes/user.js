@@ -8,6 +8,6 @@ const routes = Router();
 routes.post("/signup", validation, signup);
 routes.post("/signin", signin);
 
-routes.get("/verifytoken", authorization, authorizedUser);
+routes.get("/verify", authorization, authorizedUser);
 
 export default routes;
