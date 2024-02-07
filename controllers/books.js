@@ -79,4 +79,23 @@ const image = async (req, res, next) => {
     }
 };
 
-export {createBook, genre, image};
+const search = async (req, res, next) => {
+    try {
+        const space = req.params.query.replaceAll("+", " ");
+        let book;
+        switch(req.params.category) {
+            case "books": {
+                book = await BookModel.find({$or: [{title: {$regex: space, $options: "i"}}, {author: {$regex: space, $options: "i"}}]});
+            };
+            break;
+            case "movies": {};
+            break;
+            default: {};
+        };
+        res.json({success: true, data: book});
+    } catch (error) {
+        next(error);
+    }
+};
+
+export {createBook, genre, image, search};
