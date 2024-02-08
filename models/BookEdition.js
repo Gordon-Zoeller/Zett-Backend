@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 
-export const EditionSchema = new Schema({
+export const BookEditionSchema = new Schema({
     pages: {type: Number, required: true},
     publisher: {type: String, required: true},
     year: {type: Number, required: true},

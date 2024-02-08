@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { EditionSchema } from "./Edition.js";
+import { BookEditionSchema } from "./BookEdition.js";
 
 const BookSchema = new Schema({
     title: {type: String, required: true},
@@ -9,8 +9,8 @@ const BookSchema = new Schema({
     description: {type: String, required: true},
     reviews: [{type: Schema.Types.ObjectId, ref: "Review"}],
     edition: {
-        hardcover: EditionSchema,
-        paperback: EditionSchema
+        hardcover: BookEditionSchema,
+        paperback: BookEditionSchema
     }
 });
 
