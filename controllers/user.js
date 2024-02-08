@@ -5,7 +5,12 @@ import UserModel from "../models/User.js";
 const signup = async (req, res, next) => {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        const user = await UserModel.create({...req.body, password: hashedPassword});
+        const data = {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email
+        };
+        const user = await UserModel.create({...data, password: hashedPassword});
         const token = jwt.sign({_id: user._id, email: user.email}, process.env.TOKEN_KEY, {issuer: "Zett"});
         res.header("token", token).json({success: true, data: user});
     } catch (error) {
