@@ -22,7 +22,7 @@ const createBook = async (req, res, next) => {
                     image: {
                         fileName: hardcover,
                         data: req.files.image[0].data,
-                        thumbnail: `${process.env.THUMBNAIL}${hardcover}`
+                        thumbnail: `${process.env.API}${process.env.BOOK_THUMBNAIL}${hardcover}`
                     }
                 },
                 paperback: {
@@ -34,7 +34,7 @@ const createBook = async (req, res, next) => {
                     image: {
                         fileName: paperback,
                         data: req.files.image[1].data,
-                        thumbnail: `${process.env.THUMBNAIL}${paperback}`
+                        thumbnail: `${process.env.API}${process.env.BOOK_THUMBNAIL}${paperback}`
                     }
                 }
             }
