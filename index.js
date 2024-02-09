@@ -9,6 +9,7 @@ import user from "./routes/user.js";
 import books from "./routes/books.js";
 import movies from "./routes/movies.js";
 import genres from "./routes/genres.js";
+import search from "./routes/search.js";
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use("/api/user", user);
 app.use("/api/books", books);
 app.use("/api/movies", movies);
 app.use("/api/genres", genres);
+app.use("/api/search", search);
 
 app.use(notFound);
 app.use(errorStatus);
