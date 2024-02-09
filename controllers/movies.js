@@ -3,11 +3,15 @@ import MovieGenreModel from "../models/MovieGenre.js";
 
 const createMovie = async (req, res, next) => {
     try {
+        const actors = [];
+        Object.keys(req.body).forEach(key => {
+            if(key.startsWith("actor")) actors.push(req.body[key]);
+        });
         const dvd = Date.now() + "_" + req.files.image[0].name;
         const blueRay = Date.now() + "_" + req.files.image[1].name;
         const data = {
             director: req.body.director,
-            actors: req.body.actors,
+            actors: actors,
             title: req.body.title,
             genre: req.body.genre,
             language: req.body.language,
