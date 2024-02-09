@@ -3,7 +3,7 @@ import { MovieEditionSchema } from "./MovieEdition.js";
 
 const MovieSchema = new Schema({
     director: {type: String, required: true},
-    actors: {type: String, required: true},
+    actors: [String],
     title: {type: String, required: true},
     genre: {type: String, required: true},
     language: {type: String, required: true},
@@ -13,6 +13,7 @@ const MovieSchema = new Schema({
     country: {type: String, required: true},
     distributor: {type: String, required: true},
     description: {type: String, required: true},
+    reviews: [{type: Schema.Types.ObjectId, ref: "Review"}],
     edition: {
         dvd: MovieEditionSchema,
         blueRay: MovieEditionSchema
