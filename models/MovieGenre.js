@@ -1,6 +1,8 @@
 import { model, Schema } from "mongoose";
 
-const MovieGenreSchema = new Schema({});
+const MovieGenreSchema = new Schema({
+    genre: {type: String, required: true},
+});
 
 const MovieGenreModel = model("MovieGenre", MovieGenreSchema);
 
