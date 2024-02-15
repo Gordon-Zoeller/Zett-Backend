@@ -1,5 +1,6 @@
 import MovieModel from "../models/Movie.js";
 import MovieGenreModel from "../models/MovieGenre.js";
+import stream from "stream";
 
 const createMovie = async (req, res, next) => {
     try {
@@ -56,4 +57,30 @@ const createMovie = async (req, res, next) => {
     };
 };
 
-export {createMovie};
+const genre = async (req, res, next) => {
+    try {
+        const deadSnake = req.params.genre.replaceAll("_", " ");
+        const movies = await MovieModel.find({genre: deadSnake}).select({"edition.dvd.image.fileName": 0, "edition.dvd.image.data": 0, "edition.blueRay.image.fileName": 0, "edition.blueRay.image.data": 0});
+        res.json({success: true, data: movies});
+    } catch (error) {
+        next(error);
+    }
+};
+
+const image = async (req, res, next) => {
+    try {
+        if(req.params.fileName.includes("DVD")) {
+            const movie = await MovieModel.findOne({"edition.dvd.image.fileName": req.params.fileName}).select({"edition.dvd.image.data": 1});
+            const ReadStream = stream.Readable.from(movie.edition.dvd.image.data);
+            ReadStream.pipe(res);
+        } else {
+            const movie = await MovieModel.findOne({"edition.blueRa.image.fileName": req.params.fileName}).select({"edition.blueRay.image.data": 1});
+            const ReadStream = stream.Readable.from(movie.edition.blueRay.image.data);
+            ReadStream.pipe(res);
+        };
+    } catch (error) {
+        next(error);
+    }
+};
+
+export {createMovie, genre, image};
