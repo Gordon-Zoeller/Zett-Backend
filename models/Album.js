@@ -6,8 +6,10 @@ const AlbumSchema = new Schema({
     artist: {type: String, required: true},
     label: {type: String, required: true},
     imn: {type: Number, required: true},
+    language: {type: String, required: true},
     genre: {type: String, required: true},
     runTime: {type: String, required: true},
+    description: {type: String, required: true},
     tracks: [String],
     reviews: [{type: Schema.Types.ObjectId, ref: "Review"}],
     edition: {
