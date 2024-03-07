@@ -11,7 +11,7 @@ const signup = async (req, res, next) => {
             email: req.body.email
         };
         const user = await UserModel.create({...data, password: hashedPassword});
-        const token = jwt.sign({_id: user._id, email: user.email}, process.env.TOKEN_KEY, {issuer: "Zett"});
+        const token = jwt.sign({_id: user._id, email: user.email}, process.env.TOKEN_KEY, {issuer: `${process.env.ISSUER}`});
         res.header("token", token).json({success: true, data: user});
     } catch (error) {
         next(error);
@@ -24,7 +24,7 @@ const signin = async (req, res, next) => {
         if(user) {
             const password = await bcrypt.compare(req.body.password, user.password);
             if(password) {
-                const token = jwt.sign({_id: user._id, email: user.email}, process.env.TOKEN_KEY, {issuer: "Zett"});
+                const token = jwt.sign({_id: user._id, email: user.email}, process.env.TOKEN_KEY, {issuer: `${process.env.ISSUER}`});
                 res.header("token", token).json({success: true, data: user});
             } else {
                 res.json({success: false, message: "Please make sure your password is correct."});
