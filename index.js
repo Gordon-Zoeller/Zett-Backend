@@ -17,7 +17,7 @@ dotenv.config();
 
 const PORT = process.env.PORT;
 
-app.use(cors({origin: `${process.env.HOST}`, exposedHeaders: ["token"]}));
+app.use(cors({origin: `${process.env.HOST}`, exposedHeaders: [`${process.env.HEADER}`]}));
 app.use(express.json({limit: "100mb"}));
 app.use(express.urlencoded({extended: true}));
 app.use(express.static("./views/public"));
