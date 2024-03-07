@@ -38,7 +38,7 @@ const createMovie = async (req, res, next) => {
                     image: {
                         fileName: blueRay,
                         data: req.files.image[1].data,
-                        thumbnail: `${process.env.API}${process.env.BOOK_THUMBNAIL}${blueRay}`
+                        thumbnail: `${process.env.API}${process.env.MOVIE_THUMBNAIL}${blueRay}`
                     }
                 }
             }
