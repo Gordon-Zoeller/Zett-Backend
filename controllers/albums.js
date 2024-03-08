@@ -1,5 +1,6 @@
 import AlbumModel from "../models/Album.js";
 import AlbumGenreModel from "../models/AlbumGenre.js";
+import stream from "stream";
 
 const createAlbum = async (req, res, next) => {
     try {
@@ -64,4 +65,20 @@ const genre = async (req, res, next) => {
     }
 };
 
-export {createAlbum, genre};
+const image = async (req, res, next) => {
+    try {
+        if(req.params.fileName.includes("CD")) {
+            const album = await AlbumModel.findOne({"edition.cd.image.fileName": req.params.fileName}).select({"edition.cd.image.data": 1});
+            const ReadStream = stream.Readable.from(album.edition.cd.image.data);
+            ReadStream.pipe(res);
+        } else {
+            const album = await AlbumModel.findOne({"edition.vinyl.image.fileName": req.params.fileName}).select({"edition.vinyl.image.data": 1});
+            const ReadStream = stream.Readable.from(album.edition.vinyl.image.data);
+            ReadStream.pipe(res);
+        };
+    } catch (error) {
+        next(error);
+    }
+};
+
+export {createAlbum, genre, image};
