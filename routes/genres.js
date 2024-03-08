@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { books, movies } from "../controllers/genres.js";
+import { albums, books, movies } from "../controllers/genres.js";
 
 const routes = Router();
 
 routes.get("/books", books);
 routes.get("/movies", movies);
+routes.get("/albums", albums);
 
 export default routes;
