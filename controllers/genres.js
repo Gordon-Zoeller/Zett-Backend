@@ -1,3 +1,4 @@
+import AlbumGenreModel from "../models/AlbumGenre.js";
 import BookGenreModel from "../models/BookGenre.js";
 import MovieGenreModel from "../models/MovieGenre.js";
 
@@ -19,4 +20,13 @@ const movies = async (req, res, next) => {
     }
 };
 
-export {books, movies};
+const albums = async (req,res, next) => {
+    try {
+        const genres = await AlbumGenreModel.find();
+        res.json({success: true, data: genres});
+    } catch (error) {
+        next(error);
+    }
+};
+
+export {books, movies, albums};
