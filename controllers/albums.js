@@ -54,4 +54,14 @@ const createAlbum = async (req, res, next) => {
     };
 };
 
-export {createAlbum};
+const genre = async (req, res, next) => {
+    try {
+        const deadSnake = req.params.genre.replaceAll("_", " ");
+        const album = await AlbumModel.find({genre: deadSnake}).select({"edition.cd.image.fileName": 0, "edition.cd.image.data": 0, "edition.vinyl.image.fileName": 0, "edition.vinyl.image.data": 0});
+        res.json({success: true, data: album});
+    } catch (error) {
+        next(error);
+    }
+};
+
+export {createAlbum, genre};
