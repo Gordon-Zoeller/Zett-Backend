@@ -76,13 +76,9 @@ const image = async (req, res, next) => {
     try {
         if(req.params.fileName.includes("CD")) {
             const album = await AlbumModel.findOne({"edition.cd.image.fileName": req.params.fileName}).select({"edition.cd.image.data": 1});
-            //const ReadStream = stream.Readable.from(album.edition.cd.image.data);
-            //ReadStream.pipe(res);
             readStream(res, album.edition.cd.image.data);
         } else {
             const album = await AlbumModel.findOne({"edition.vinyl.image.fileName": req.params.fileName}).select({"edition.vinyl.image.data": 1});
-            //const ReadStream = stream.Readable.from(album.edition.vinyl.image.data);
-            //ReadStream.pipe(res);
             readStream(res, album.edition.vinyl.image.data);
         };
     } catch (error) {

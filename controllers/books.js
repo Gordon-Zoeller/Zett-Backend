@@ -71,14 +71,10 @@ const image = async (req, res, next) => {
     try {
         if(req.params.fileName.includes("Hardcover")) {
             const book = await BookModel.findOne({"edition.hardcover.image.fileName": req.params.fileName}).select({"edition.hardcover.image.data": 1});
-            //const ReadStream = stream.Readable.from(book.edition.hardcover.image.data);
-            //ReadStream.pipe(res);
             readStream(res, book.edition.hardcover.image.data);
         } else {
             const book = await BookModel.findOne({"edition.paperback.image.fileName": req.params.fileName}).select({"edition.paperback.image.data": 1});
             readStream(res, book.edition.paperback.image.data);
-            //const ReadStream = stream.Readable.from(book.edition.paperback.image.data);
-            //ReadStream.pipe(res);
         };
     } catch (error) {
         next(error);

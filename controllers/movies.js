@@ -77,13 +77,9 @@ const image = async (req, res, next) => {
     try {
         if(req.params.fileName.includes("DVD")) {
             const movie = await MovieModel.findOne({"edition.dvd.image.fileName": req.params.fileName}).select({"edition.dvd.image.data": 1});
-            //const ReadStream = stream.Readable.from(movie.edition.dvd.image.data);
-            //ReadStream.pipe(res);
             readStream(res, movie.edition.dvd.image.data);
         } else {
             const movie = await MovieModel.findOne({"edition.blueRa.image.fileName": req.params.fileName}).select({"edition.blueRay.image.data": 1});
-            //const ReadStream = stream.Readable.from(movie.edition.blueRay.image.data);
-            //ReadStream.pipe(res);
             readStream(res, movie.edition.blueRay.image.data);
         };
     } catch (error) {
