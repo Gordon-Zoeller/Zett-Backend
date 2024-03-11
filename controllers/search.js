@@ -12,7 +12,14 @@ const search = async (req, res, next) => {
                 break;
             case "movies": product = await MovieModel.find({$or: [{title: {$regex: space, $options: "i"}}, {director: {$regex: space, $options: "i"}}, {actors: {$regex: space, $options: "i"}}]});
                 break;
-            default: product = await AlbumModel.find({$or: [{title: {$regex: space, $options: "i"}}, {artist: {$regex: space, $options: "i"}}]});
+            case "albums": product = await AlbumModel.find({$or: [{title: {$regex: space, $options: "i"}}, {artist: {$regex: space, $options: "i"}}]});
+                break;
+            default: {
+                const books = await BookModel.find({$or: [{title: {$regex: space, $options: "i"}}, {author: {$regex: space, $options: "i"}}]});
+                const movies = await MovieModel.find({$or: [{title: {$regex: space, $options: "i"}}, {director: {$regex: space, $options: "i"}}, {actors: {$regex: space, $options: "i"}}]});
+                const albums = await AlbumModel.find({$or: [{title: {$regex: space, $options: "i"}}, {artist: {$regex: space, $options: "i"}}]});
+                product = [...books, ...movies, ...albums];
+            };
         };
         res.json({success: true, data: product});
     } catch (error) {
