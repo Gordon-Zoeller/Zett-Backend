@@ -2,6 +2,7 @@ import { model, Schema } from "mongoose";
 import { MovieEditionSchema } from "./MovieEdition.js";
 
 const MovieSchema = new Schema({
+    category: {type: String, required: true},
     director: {type: String, required: true},
     actors: [String],
     title: {type: String, required: true},
@@ -15,8 +16,8 @@ const MovieSchema = new Schema({
     description: {type: String, required: true},
     reviews: [{type: Schema.Types.ObjectId, ref: "Review"}],
     edition: {
-        dvd: MovieEditionSchema,
-        blueRay: MovieEditionSchema
+        one: MovieEditionSchema,
+        two: MovieEditionSchema
     }
 });
 

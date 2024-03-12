@@ -11,13 +11,14 @@ const createBook = async (req, res, next) => {
         const hardcover = fileName(req.files.image[0].name);
         const paperback = fileName(req.files.image[1].name);
         const data = {
+            category: "book",
             title: req.body.title,
             author: req.body.author,
             genre: req.body.genre,
             language: req.body.language,
             description: req.body.description,
             edition: {
-                hardcover: {
+                one: {
                     pages: req.body.pages[0],
                     publisher: req.body.publisher[0],
                     year: req.body.year[0],
@@ -29,7 +30,7 @@ const createBook = async (req, res, next) => {
                         thumbnail: `${process.env.API}${process.env.BOOK_THUMBNAIL}${hardcover}`
                     }
                 },
-                paperback: {
+                two: {
                     pages: req.body.pages[1],
                     publisher: req.body.publisher[1],
                     year: req.body.year[1],
@@ -60,7 +61,7 @@ const createBook = async (req, res, next) => {
 const genre = async (req, res, next) => {
     try {
         const deadSnake = emptySpace(req.params.genre);
-        const books = await BookModel.find({genre: deadSnake}).select({"edition.hardcover.image.fileName": 0, "edition.hardcover.image.data": 0, "edition.paperback.image.fileName": 0, "edition.paperback.image.data": 0});
+        const books = await BookModel.find({genre: deadSnake}).select({"edition.one.image.fileName": 0, "edition.one.image.data": 0, "edition.two.image.fileName": 0, "edition.two.image.data": 0});
         res.json({success: true, data: books});
     } catch (error) {
         next(error);
@@ -70,11 +71,11 @@ const genre = async (req, res, next) => {
 const image = async (req, res, next) => {
     try {
         if(req.params.fileName.includes("Hardcover")) {
-            const book = await BookModel.findOne({"edition.hardcover.image.fileName": req.params.fileName}).select({"edition.hardcover.image.data": 1});
-            readStream(res, book.edition.hardcover.image.data);
+            const book = await BookModel.findOne({"edition.one.image.fileName": req.params.fileName}).select({"edition.one.image.data": 1});
+            readStream(res, book.edition.one.image.data);
         } else {
-            const book = await BookModel.findOne({"edition.paperback.image.fileName": req.params.fileName}).select({"edition.paperback.image.data": 1});
-            readStream(res, book.edition.paperback.image.data);
+            const book = await BookModel.findOne({"edition.two.image.fileName": req.params.fileName}).select({"edition.two.image.data": 1});
+            readStream(res, book.edition.two.image.data);
         };
     } catch (error) {
         next(error);

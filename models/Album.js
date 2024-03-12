@@ -2,6 +2,7 @@ import { model, Schema } from "mongoose";
 import { AlbumEditionSchema } from "./AlbumEdition.js";
 
 const AlbumSchema = new Schema({
+    category: {type: String, required: true},
     title: {type: String, required: true},
     artist: {type: String, required: true},
     label: {type: String, required: true},
@@ -12,8 +13,8 @@ const AlbumSchema = new Schema({
     tracks: [String],
     reviews: [{type: Schema.Types.ObjectId, ref: "Review"}],
     edition: {
-        cd: AlbumEditionSchema,
-        vinyl: AlbumEditionSchema
+        one: AlbumEditionSchema,
+        two: AlbumEditionSchema
     }
 });
 

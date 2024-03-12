@@ -2,6 +2,7 @@ import { model, Schema } from "mongoose";
 import { BookEditionSchema } from "./BookEdition.js";
 
 const BookSchema = new Schema({
+    category: {type: String, required: true},
     title: {type: String, required: true},
     author: {type: String, required: true},
     genre: {type: String, required: true},
@@ -9,8 +10,8 @@ const BookSchema = new Schema({
     description: {type: String, required: true},
     reviews: [{type: Schema.Types.ObjectId, ref: "Review"}],
     edition: {
-        hardcover: BookEditionSchema,
-        paperback: BookEditionSchema
+        one: BookEditionSchema,
+        two: BookEditionSchema
     }
 });
 

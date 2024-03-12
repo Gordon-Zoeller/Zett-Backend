@@ -17,6 +17,7 @@ const createMovie = async (req, res, next) => {
         const dvd = fileName(req.files.image[0].name);
         const blueRay = fileName(req.files.image[1].name);
         const data = {
+            category: "movie",
             director: req.body.director,
             actors: actors,
             title: req.body.title,
@@ -29,7 +30,7 @@ const createMovie = async (req, res, next) => {
             distributor: req.body.distributor,
             description: req.body.description,
             edition: {
-                dvd: {
+                one: {
                     year: req.body.year[0],
                     price: req.body.price[0],
                     image: {
@@ -38,7 +39,7 @@ const createMovie = async (req, res, next) => {
                         thumbnail: `${process.env.API}${process.env.MOVIE_THUMBNAIL}${dvd}`
                     }
                 },
-                blueRay: {
+                two: {
                     year: req.body.year[1],
                     price: req.body.price[1],
                     image: {
@@ -66,7 +67,7 @@ const createMovie = async (req, res, next) => {
 const genre = async (req, res, next) => {
     try {
         const deadSnake = emptySpace(req.params.genre);
-        const movies = await MovieModel.find({genre: deadSnake}).select({"edition.dvd.image.fileName": 0, "edition.dvd.image.data": 0, "edition.blueRay.image.fileName": 0, "edition.blueRay.image.data": 0});
+        const movies = await MovieModel.find({genre: deadSnake}).select({"edition.one.image.fileName": 0, "edition.one.image.data": 0, "edition.two.image.fileName": 0, "edition.two.image.data": 0});
         res.json({success: true, data: movies});
     } catch (error) {
         next(error);
@@ -76,11 +77,11 @@ const genre = async (req, res, next) => {
 const image = async (req, res, next) => {
     try {
         if(req.params.fileName.includes("DVD")) {
-            const movie = await MovieModel.findOne({"edition.dvd.image.fileName": req.params.fileName}).select({"edition.dvd.image.data": 1});
-            readStream(res, movie.edition.dvd.image.data);
+            const movie = await MovieModel.findOne({"edition.one.image.fileName": req.params.fileName}).select({"edition.one.image.data": 1});
+            readStream(res, movie.edition.one.image.data);
         } else {
-            const movie = await MovieModel.findOne({"edition.blueRa.image.fileName": req.params.fileName}).select({"edition.blueRay.image.data": 1});
-            readStream(res, movie.edition.blueRay.image.data);
+            const movie = await MovieModel.findOne({"edition.two.image.fileName": req.params.fileName}).select({"edition.two.image.data": 1});
+            readStream(res, movie.edition.two.image.data);
         };
     } catch (error) {
         next(error);
