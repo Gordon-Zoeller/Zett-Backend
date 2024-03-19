@@ -86,4 +86,13 @@ const image = async (req, res, next) => {
     }
 };
 
-export {createAlbum, genre, image};
+const id = async (req, res, next) => {
+    try {
+        const album = await AlbumModel.findById(req.params.id).select({"edition.one.image.fileName": 0, "edition.one.image.data": 0, "edition.two.image.fileName": 0, "edition.two.image.data": 0});
+        res.json({success: true, data: album});
+    } catch (error) {
+        next(error);
+    }
+};
+
+export {createAlbum, genre, image, id};

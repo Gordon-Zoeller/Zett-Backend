@@ -88,4 +88,13 @@ const image = async (req, res, next) => {
     }
 };
 
-export {createMovie, genre, image};
+const id = async (req, res, next) => {
+    try {
+        const movie = await MovieModel.findById(req.params.id).select({"edition.one.image.fileName": 0, "edition.one.image.data": 0, "edition.two.image.fileName": 0, "edition.two.image.data": 0});
+        res.json({success: true, data: movie});
+    } catch (error) {
+        next(error);
+    }
+};
+
+export {createMovie, genre, image, id};

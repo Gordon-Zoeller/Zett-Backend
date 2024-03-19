@@ -82,4 +82,13 @@ const image = async (req, res, next) => {
     }
 };
 
-export {createBook, genre, image};
+const id = async (req, res, next) => {
+    try {
+        const book = await BookModel.findById(req.params.id).select({"edition.one.image.fileName": 0, "edition.one.image.data": 0, "edition.two.image.fileName": 0, "edition.two.image.data": 0});
+        res.json({success: true, data: book});
+    } catch (error) {
+        next(error);
+    }
+};
+
+export {createBook, genre, image, id};
